@@ -24,6 +24,13 @@ def Complement(Pattern):
     complemented_dna = ''.join(complemented)
     return complemented_dna
 
+def PatternMatching(Pattern, Genome):
+    positions = [] # output variable
+    for i in range(len(Genome) - len(Pattern) + 1):
+        if Genome[i:i+len(Pattern)] == Pattern:
+            positions.append(i)
+    return positions
+
 if __name__ == "__main__":
     pattern_text = input("Enter the nucleotide sequence: ")
     print("Reversed sequence:\n", Reverse(pattern_text))
