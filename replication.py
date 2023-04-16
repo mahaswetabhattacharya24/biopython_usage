@@ -57,6 +57,26 @@ def MinimumSkew(Genome):
         count +=1
     return positions
 
+def HammingDistance(p, q):
+    count = 0
+    for i, j in zip(p, q):
+       if i != j:
+           count += 1
+    return count
+
+def ApproximatePatternMatching(Text, Pattern, d):
+    positions = []
+    for i in range(len(Text)-len(Pattern)+1):
+        if HammingDistance(Text[i:i+len(Pattern)], Pattern) <= d:
+            positions.append(i)
+    return positions
+
+def ApproximatePatternCount(Pattern, Text, d):
+    count = 0 # initialize count variable
+    for i in range(len(Text)-len(Pattern)+1):
+        if HammingDistance(Text[i:i+len(Pattern)], Pattern) <= d:
+            count+=1
+    return count
 
 if __name__ == "__main__":
     sequence = input("Enter the nucleotide sequence: ")
@@ -66,5 +86,9 @@ if __name__ == "__main__":
 
     pattern = input("Enter the pattern to look for: ")
     print("Positions of appearance of the pattern:\n ", PatternMatching(pattern, sequence))
+
+    sequence_1 = "TGACCCGTTATGCTCGAGTTCGGTCAGAGCGTCATTGCGAGTAGTCGTTTGCTTTCTCAAACTCC"
+    sequence_2 = "GAGCGATTAAGCGTGACAGCCCCAGGGAACCCACAAAACGTGATCGCAGTCCATCCGATCATACA"
+    print("Hamming Distance = ", HammingDistance(sequence_1, sequence_2))
     print("Done...")
 
