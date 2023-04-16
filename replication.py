@@ -78,6 +78,7 @@ def ApproximatePatternCount(Pattern, Text, d):
             count+=1
     return count
 
+
 if __name__ == "__main__":
     sequence = input("Enter the nucleotide sequence: ")
     print("Reversed sequence:\n", Reverse(sequence))
