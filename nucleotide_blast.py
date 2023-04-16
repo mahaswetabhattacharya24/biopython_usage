@@ -11,7 +11,7 @@ if __name__ == "__main__":
     print("Sequence: \n")
     print(nuc_record.seq)
 
-
+    #Blast analysis
     result_handle = NCBIWWW.qblast("blastn", "nt", nuc_record.seq)
     blast_result = SearchIO.read(result_handle, "blast-xml")
     print("First 2 Blast Result: \n", blast_result[0:2])
