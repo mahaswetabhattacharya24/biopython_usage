@@ -32,8 +32,12 @@ def PatternMatching(Pattern, Genome):
     return positions
 
 if __name__ == "__main__":
-    pattern_text = input("Enter the nucleotide sequence: ")
-    print("Reversed sequence:\n", Reverse(pattern_text))
-    print("Complementary sequence:\n", Complement(pattern_text))
-    print("Reversed complemented sequence:\n", ReverseComplement(pattern_text))
+    sequence = input("Enter the nucleotide sequence: ")
+    print("Reversed sequence:\n", Reverse(sequence))
+    print("Complementary sequence:\n", Complement(sequence))
+    print("Reversed complemented sequence:\n", ReverseComplement(sequence))
+
+    pattern = input("Enter the pattern to look for: ")
+    print("Positions of appearance of the pattern:\n ", PatternMatching(pattern, sequence))
     print("Done...")
+
