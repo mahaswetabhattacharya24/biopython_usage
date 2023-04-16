@@ -1,3 +1,4 @@
+import math
 def Count(Motifs):
     count = {} # initializing the count dictionary
     k = len(Motifs[0])
@@ -45,14 +46,21 @@ def Score(Motifs):
                 count += 1
     return count
 
-def pr(Motif):
-    total = 1
-    k = len(Motif)
-    for i in range(k-1):
-        for nucleotide in profile:
-            if Motif[i] == nucleotide:
-                total *= profile[nucleotide][i]
-    return total
+def Count(Motifs):
+    count = {} # initializing the count dictionary
+    # your code here
+    k = len(Motifs[0])
+    for symbol in "ACGT":
+        count[symbol] = []
+        for j in range(k):
+            count[symbol].append(0)
+    t = len(Motifs)
+    for i in range(t):
+        for j in range(k):
+            symbol = Motifs[i][j]
+            count[symbol][j] += 1
+    return count
+
 def Pr(Text, Profile):
     outcome = 1
     for i in range(len(Text)):
@@ -73,3 +81,39 @@ def ProfileMostProbableKmer(text, k, profile):
         if pr[key] == m:
             most_prob_kmer.append(key)
     return most_prob_kmer[0]
+
+def GreedyMotifSearch(Dna,k,t):
+    BestMotifs = []
+    for i in range(0, t):
+        BestMotifs.append(Dna[i][0:k])
+    n = len(Dna[0])
+    for m in range(n-k+1):
+        Motifs = []
+        Motifs.append(Dna[0][m:m+k])
+        for j in range(1, t):
+            P = Profile(Motifs[0:j])
+            Motifs.append(ProfileMostProbableKmer(Dna[j], k, P))
+        if Score(Motifs) < Score(BestMotifs):
+            BestMotifs = Motifs
+    return BestMotifs
+
+def Entropy(motifs):
+    entropy = 0
+    for i in range(len(motifs)):
+        for j in motifs[i]:
+            if j == 0:
+                entropy += 0
+            else:
+                entropy += j*(math.log(j,2))
+    return entropy *-1
+
+
+if __name__ == "__main__":
+    profile = [
+        [0.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.9, 0.1, 0.1, 0.1, 0.3, 0.0],
+        [0.1, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.1, 0.2, 0.4, 0.6],
+        [0.0, 0.0, 1.0, 1.0, 0.9, 0.9, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.7, 0.2, 0.0, 0.0, 0.1, 0.1, 0.0, 0.5, 0.8, 0.7, 0.3, 0.4]
+    ]
+
+    print("Entropy: ", Entropy(profile))
